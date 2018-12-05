@@ -5,68 +5,83 @@
  */
 package minadocampo;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.Icon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author hz
  */
-public class Botao extends JButton{
+public class Botao extends JButton {
     String txtPadrao = "txtP";
-    BotaoHandler btHand = new BotaoHandler();
-    MouseListener eventoM = new MouseListener();
-    
-    
-    
+    Boolean ocupado = false;
+    private int situacao = 0;
+    private boolean marcadorDeMinas = false;
+    public final Icon ic_bomba = new javax.swing.ImageIcon(getClass().getResource("bomba.png"));
     
     public Botao() { //construtor do botão
         super();
         setText(txtPadrao);
-        addActionListener(btHand);
+        //addActionListener(btHand);
+        this.addMouseListener(new MouseHandler());
+        
     }
     Botao(String text){
         super();
         setText(text);
-        addActionListener(btHand);
-        addMouseListener(eventoM);
+        //addActionListener(btHand);
+        this.addMouseListener(new MouseHandler());
         
+        
+        
+    }
+    public boolean getOcupado(){
+        return ocupado;
+    }
+    public void setOcupado(boolean x){
+        this.ocupado = x;
     }
     
   
     
-    
+    /*
     private class BotaoHandler implements ActionListener {
         public void actionPerformed(ActionEvent event){
             System.out.println("Pressinou a porra toda!!");
-            //JOptionPane.showMessageDialog(Botao.this, String.format("Donald LINDA %s",event.getActionCommand()));
+            JOptionPane.showMessageDialog(Botao.this, String.format("Donald LINDA %s",event.getActionCommand()));
                     
-        }
-        
+        }   
     }
-   
-    public void MouseCliked (MouseEvent evt){     
-            
-            switch (evt.getButton()){
-                case MouseEvent.BUTTON1:
-                    System.out.println("Clik1");
-                    break;
-                case MouseEvent.BUTTON2:
-                    System.out.println("Clik2");
-                    break;
-                case MouseEvent.BUTTON3:
-                    System.out.println("Clik3");
-            }
-            
-        
-        
-    }
+*/
     
+    private class MouseHandler extends MouseAdapter {
+        public void mouseClicked (MouseEvent evt){
+            Botao aux = (Botao) evt.getComponent();
+            if(aux.getOcupado() == false){
+                switch (evt.getButton()){
+                    case MouseEvent.BUTTON1:{System.out.println("direito"); 
+                        aux.setText("S");
+                        ic_bomba.paintIcon(aux, getGraphics().create(), CENTER, CENTER);
+                        aux.setIcon(ic_bomba);
+                        
+                        break;
+                    }
+                    case MouseEvent.BUTTON3:{System.out.println("esquerdo"); 
+                        aux.setIcon(null);
+                        break;
+                    }
+                        
+                
+                }
+                        
+                        
+            }
+        }
+    }
+
 }
-
-
