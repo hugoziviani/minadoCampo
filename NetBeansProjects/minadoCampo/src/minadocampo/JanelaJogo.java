@@ -33,14 +33,14 @@ public class JanelaJogo extends javax.swing.JFrame {
         matBotoes = new Botao[qtd];
         //super.setSize(600, 900);
         //matrizBotoes.setSize(super.getWidth(),super.getHeight());
-        //matrizBotoes.setSize ((70/100)*super.getHeight() ,super.getWidth());
+        matrizBotoes.setSize (super.getHeight() ,super.getWidth());
         matrizBotoes.setLayout(new GridLayout(aux, aux));
         for(int i=0; i<qtd; i++){
             matBotoes[i] = new Botao("t");
             
             matrizBotoes.add(matBotoes[i]);
             matBotoes[i].setVisible(true);
-            matrizBotoes.setBackground(Color.red);
+            
             
             
         }
@@ -59,23 +59,33 @@ public class JanelaJogo extends javax.swing.JFrame {
     private void initComponents() {
 
         matrizBotoes = new javax.swing.JDesktopPane();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        matrizBotoes.setBackground(new java.awt.Color(0, 102, 51));
+        matrizBotoes.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 0)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(matrizBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(matrizBotoes, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(123, Short.MAX_VALUE)
-                .addComponent(matrizBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(matrizBotoes)
                 .addContainerGap())
         );
 
@@ -114,7 +124,8 @@ public class JanelaJogo extends javax.swing.JFrame {
             public void run() {
                 
                 JanelaJogo wind = new JanelaJogo();
-                wind.setLocation(200,200);
+                wind.setLocationRelativeTo(null);
+                wind.setSize(600, 450);
                 wind.setVisible(true);
             }
         });
@@ -122,6 +133,7 @@ public class JanelaJogo extends javax.swing.JFrame {
     
     //private minadocampo.Botao matBotoes [];
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JDesktopPane matrizBotoes;
     // End of variables declaration//GEN-END:variables
 }
