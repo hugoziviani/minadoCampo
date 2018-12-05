@@ -47,17 +47,6 @@ public class Botao extends JButton {
         this.ocupado = x;
     }
     
-  
-    
-    /*
-    private class BotaoHandler implements ActionListener {
-        public void actionPerformed(ActionEvent event){
-            System.out.println("Pressinou a porra toda!!");
-            JOptionPane.showMessageDialog(Botao.this, String.format("Donald LINDA %s",event.getActionCommand()));
-                    
-        }   
-    }
-*/
     
     private class MouseHandler extends MouseAdapter {
         public void mouseClicked (MouseEvent evt){
