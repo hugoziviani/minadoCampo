@@ -2,8 +2,38 @@
 package minadocampo;
 
 public class Partida {
-   final int BF = 4;
-   final int BM = 6;
-   final int BD = 10;
+   
+   
+   private int nBombas;
+   
+
+    public Partida(int nivel) {
+        switch (nivel){
+            case 3:{
+                nBombas = (30/100);
+                
+            }
+            case 6:{
+            
+            }
+            case 9:{
+            
+            }
+        
+        }
+        
+        
+                
+                    
+      
     
+    }
+ 
+   
+   
 }
+
+
+
+
+

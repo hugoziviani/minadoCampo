@@ -5,20 +5,31 @@
  */
 package minadocampo;
 
-import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.Random;
+import javax.swing.Icon;
 
 /**
  *
  * @author hz
  */
 public class JanelaPrincipalJogo extends javax.swing.JFrame {
-
-    private Botao [] matBotoes;
+    final int BF = 3;
+    final int BM = 6;
+    final int BD = 9;
+    
+    private static int clike =0;
+    final int NLINCOL = 5;
+    
+    private int nBombas = NLINCOL;
+  
+    private static Botao [] matBotoes;
+    
     public JanelaPrincipalJogo() {
         
         initComponents();
-        this.fazBotoes(9);
+        this.fazBotoes(NLINCOL);
+        
         
         
     }
@@ -28,8 +39,14 @@ public class JanelaPrincipalJogo extends javax.swing.JFrame {
         qtd = qtd*qtd;
         matBotoes = new Botao[qtd];
         jBotoes.setLayout(new GridLayout(aux, aux));
-        for(int i=0; i< matBotoes.length; i++){
-            matBotoes[i] = new Botao("");
+        for(int i=0; i < matBotoes.length; i++){
+            Random bf = new Random();
+            int n = bf.nextInt(10);                       
+            matBotoes[i] = new Botao();
+            if(n < 5 && nBombas > 0){
+                matBotoes[i].temBomba = true;        
+                nBombas--;
+            }
             jBotoes.add(matBotoes[i]);
             matBotoes[i].setVisible(true);
         }
@@ -37,6 +54,21 @@ public class JanelaPrincipalJogo extends javax.swing.JFrame {
     jBotoes.setVisible(true);
         
     }
+    
+    public static void varreMostraBomba(Icon ic_bomba){
+        for (Botao bt : matBotoes) {
+            if (bt.temBomba) {
+                bt.setIcon(ic_bomba);
+            }
+        }
+    }
+    public static void addClike(){
+        clike++;
+    }
+    public static int getClike(){
+        return clike;
+    }
+   
     
 
 
@@ -129,13 +161,18 @@ public class JanelaPrincipalJogo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JanelaPrincipalJogo janela = new JanelaPrincipalJogo();
+                JanelaPrincipalJogo janela = new JanelaPrincipalJogo();                
                 janela.setLocationRelativeTo(null);
                 janela.setSize(600, 450);
                 janela.setVisible(true);
             }
         });
     }
+    
+    /**
+     *
+     */
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jBotoes;

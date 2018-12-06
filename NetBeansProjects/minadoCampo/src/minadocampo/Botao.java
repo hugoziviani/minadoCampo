@@ -7,27 +7,29 @@ package minadocampo;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.Icon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author hz
  */
 public class Botao extends JButton {
-    String txtPadrao = "txtP";
+   
     Boolean ocupado = false;
-    private int situacao = 0;
+    protected boolean temBomba = false;
+    boolean clicado = false;
     private boolean marcadorDeMinas = false;
+    
+    
     public final Icon ic_bomba = new javax.swing.ImageIcon(getClass().getResource("bomba.png"));
     public final Icon ic_bandeirinha = new javax.swing.ImageIcon(getClass().getResource("bandeirinha.png"));
     
     public Botao() { //construtor do botão
         super();
-        setText(txtPadrao);
+        setText("");
         //addActionListener(btHand);
         this.addMouseListener(new MouseHandler());
         
@@ -49,15 +51,23 @@ public class Botao extends JButton {
     }
     
     
+    
     private class MouseHandler extends MouseAdapter {
         public void mouseClicked (MouseEvent evt){
             Botao aux = (Botao) evt.getComponent();
             if(aux.getOcupado() == false){
                 switch (evt.getButton()){
-                    case MouseEvent.BUTTON1:{System.out.println("direito"); 
-                        aux.setText("S");
-                        ic_bomba.paintIcon(aux, getGraphics().create(), CENTER, CENTER);
-                        aux.setIcon(ic_bomba);
+                    case MouseEvent.BUTTON1:{System.out.println("direito");
+                        JanelaPrincipalJogo.addClike();
+                        if(aux.temBomba){
+                            aux.setIcon(ic_bomba);//seta ic_bomba
+                            JanelaPrincipalJogo.varreMostraBomba(ic_bomba);
+                            
+                            JOptionPane.showMessageDialog(null,"Fim de jogo - Você perdeu com apenas "+JanelaPrincipalJogo.getClike() +" cliks");
+                          
+                        }
+                       
+                        
                         
                         break;
                     }
