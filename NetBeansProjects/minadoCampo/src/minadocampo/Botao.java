@@ -20,8 +20,23 @@ public class Botao extends JButton {
    
     Boolean ocupado = false;
     protected boolean temBomba = false;
+    protected int bombasEmVolta = 0;
     boolean clicado = false;
     private boolean marcadorDeMinas = false;
+    private int i, j;
+
+    public int getI() {
+        return i;
+    }
+    public int getJ() {
+        return j;
+    }
+    public void setPosicao(int i, int j){
+        this.i=i;
+        this.j=j;
+        
+    }
+    
     
     
     public final Icon ic_bomba = new javax.swing.ImageIcon(getClass().getResource("bomba.png"));

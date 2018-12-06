@@ -23,7 +23,7 @@ public class JanelaPrincipalJogo extends javax.swing.JFrame {
     
     private int nBombas = NLINCOL;
   
-    private static Botao [] matBotoes;
+    private static Botao [][] matBotoes;
     
     public JanelaPrincipalJogo() {
         
@@ -33,22 +33,26 @@ public class JanelaPrincipalJogo extends javax.swing.JFrame {
         
         
     }
-    
     public void fazBotoes(int qtd){
-        int aux = qtd;
-        qtd = qtd*qtd;
-        matBotoes = new Botao[qtd];
-        jBotoes.setLayout(new GridLayout(aux, aux));
+        
+        matBotoes = new Botao[qtd][qtd];
+        jBotoes.setLayout(new GridLayout(qtd, qtd));
         for(int i=0; i < matBotoes.length; i++){
-            Random bf = new Random();
+            for(int j=0; j<matBotoes.length; j++){
+                Random bf = new Random();
             int n = bf.nextInt(10);                       
-            matBotoes[i] = new Botao();
+            matBotoes[i][j] = new Botao();
+            matBotoes[i][j].setPosicao(i, j);
             if(n < 5 && nBombas > 0){
-                matBotoes[i].temBomba = true;        
+                matBotoes[i][j].temBomba = true;        
                 nBombas--;
             }
-            jBotoes.add(matBotoes[i]);
-            matBotoes[i].setVisible(true);
+            jBotoes.add(matBotoes[i][j]);
+            matBotoes[i][j].setVisible(true);
+            
+                
+            }
+            
         }
     
     jBotoes.setVisible(true);
@@ -56,10 +60,13 @@ public class JanelaPrincipalJogo extends javax.swing.JFrame {
     }
     
     public static void varreMostraBomba(Icon ic_bomba){
-        for (Botao bt : matBotoes) {
-            if (bt.temBomba) {
-                bt.setIcon(ic_bomba);
+        for (int i=0; i< matBotoes.length; i++) {
+            for(int j=0; j<matBotoes.length; j++){
+                if (matBotoes[i][j].temBomba) {
+                    matBotoes[i][j].setIcon(ic_bomba);
+                }
             }
+            
         }
     }
     public static void addClike(){
@@ -68,7 +75,59 @@ public class JanelaPrincipalJogo extends javax.swing.JFrame {
     public static int getClike(){
         return clike;
     }
-   
+    
+    private void contaBombasRedor(int qtd){
+        for(int i=0; i < matBotoes.length; i++){
+            for(int j=0; j<matBotoes.length; j++){
+                //VER BOMBA!!!!!!! ANTES DE ENTRAR NOS IFS pq se ele é uma bomba nao precisa de contar quantas tao em volta
+                if(!matBotoes[i][j].temBomba){
+                    if((i-1>=0) && (j-1>=0)){               //vizinho Noroeste
+                        if(!matBotoes[i-1][j-1].temBomba){
+                            matBotoes[i][j].bombasEmVolta++;
+                        }
+                    }
+                    if(i-1>=0){                             //vizinho Norte
+                        if(!matBotoes[i-1][j].temBomba){
+                            matBotoes[i][j].bombasEmVolta++;
+                        }
+                    }
+                    if((i+1<qtd) && (j+1<qtd)){             //vizinho Nordeste
+                        if(!matBotoes[i+1][j+1].temBomba){
+                            matBotoes[i][j].bombasEmVolta++;
+                        }
+                    }
+                    if(j-1>=0){                            //vizinho Oeste
+                        if(!matBotoes[i][j-1].temBomba){
+                            matBotoes[i][j].bombasEmVolta++;
+                        }
+                    }                              
+                    if(j+1<qtd){                            //vizinho Leste
+                        if(!matBotoes[i][j+1].temBomba){
+                            matBotoes[i][j].bombasEmVolta++;
+                        }
+                    }
+                    if((i+1<qtd)&&(j-1>=0)){                //vizinho Sudoeste
+                        if(!matBotoes[i+1][j-1].temBomba){
+                            matBotoes[i][j].bombasEmVolta++;
+                        }
+                    }
+                    if(i+1<qtd){                           //vizinho Sul
+                        if(!matBotoes[i+1][j].temBomba){
+                            matBotoes[i][j].bombasEmVolta++;
+                        }
+                    }
+                    if((i+1<qtd)&&(j+1<qtd)){              //vizinho Sudeste
+                        if(!matBotoes[i+1][j+1].temBomba){
+                            matBotoes[i][j].bombasEmVolta++;
+                        }
+                    }
+
+                }    
+            }
+     
+        }
+    
+    }
     
 
 
