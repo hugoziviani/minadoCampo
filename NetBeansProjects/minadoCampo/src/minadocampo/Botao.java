@@ -64,6 +64,14 @@ public class Botao extends JButton {
     public void setOcupado(boolean x){
         this.ocupado = x;
     }
+
+    public int getBombasEmVolta() {
+        return bombasEmVolta;
+    }
+
+    public void setBombasEmVolta(int bombasEmVolta) {
+        this.bombasEmVolta = bombasEmVolta;
+    }
     
     
     
