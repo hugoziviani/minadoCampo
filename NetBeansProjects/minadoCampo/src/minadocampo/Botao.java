@@ -23,6 +23,7 @@ public class Botao extends JButton {
     private int situacao = 0;
     private boolean marcadorDeMinas = false;
     public final Icon ic_bomba = new javax.swing.ImageIcon(getClass().getResource("bomba.png"));
+    public final Icon ic_bandeirinha = new javax.swing.ImageIcon(getClass().getResource("bandeirinha.png"));
     
     public Botao() { //construtor do botão
         super();
@@ -60,8 +61,8 @@ public class Botao extends JButton {
                         
                         break;
                     }
-                    case MouseEvent.BUTTON3:{System.out.println("esquerdo"); 
-                        aux.setIcon(null);
+                    case MouseEvent.BUTTON3:{System.out.println("esquerdo");
+                        aux.setIcon(ic_bandeirinha);
                         break;
                     }
                         
