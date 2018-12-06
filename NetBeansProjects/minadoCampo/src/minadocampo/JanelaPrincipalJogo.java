@@ -19,10 +19,8 @@ public class JanelaPrincipalJogo extends javax.swing.JFrame {
     final int BD = 9;
     
     private static int clike =0;
-    final int NLINCOL = 5;
-    
+    final int NLINCOL = 10;
     private int nBombas = NLINCOL;
-  
     private static Botao [][] matBotoes;
     
     public JanelaPrincipalJogo() {
@@ -31,7 +29,7 @@ public class JanelaPrincipalJogo extends javax.swing.JFrame {
         
         this.fazBotoes(NLINCOL);
         contaBombasRedor(NLINCOL);
-        setTxtNBombas();
+    
         
         
         
@@ -46,7 +44,7 @@ public class JanelaPrincipalJogo extends javax.swing.JFrame {
             int n = bf.nextInt(10);                       
             matBotoes[i][j] = new Botao();
             matBotoes[i][j].setPosicao(i, j);
-            if(n < 5 && nBombas > 0){
+            if(n < 1 && nBombas > 0){
                 matBotoes[i][j].temBomba = true;        
                 nBombas--;
             }
@@ -60,11 +58,11 @@ public class JanelaPrincipalJogo extends javax.swing.JFrame {
     
     jBotoes.setVisible(true);
         
-    }
-    
+    }  
     public static void varreMostraBomba(Icon ic_bomba){
         for (int i=0; i< matBotoes.length; i++) {
             for(int j=0; j<matBotoes.length; j++){
+                matBotoes[i][j].setOcupado(true); // já vai deixando ocupado o botao
                 if (matBotoes[i][j].temBomba) {
                     matBotoes[i][j].setIcon(ic_bomba);
                 }
@@ -78,7 +76,6 @@ public class JanelaPrincipalJogo extends javax.swing.JFrame {
     public static int getClike(){
         return clike;
     }
-    
     private void contaBombasRedor(int qtd){
         for(int i=0; i < matBotoes.length; i++){
             for(int j=0; j<matBotoes.length; j++){

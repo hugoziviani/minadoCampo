@@ -5,6 +5,8 @@
  */
 package minadocampo;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.Icon;
@@ -18,7 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class Botao extends JButton {
    
-    Boolean ocupado = false;
+    protected boolean ocupado = false;
     protected boolean temBomba = false;
     protected int bombasEmVolta = 0;
     boolean clicado = false;
@@ -82,12 +84,26 @@ public class Botao extends JButton {
                 switch (evt.getButton()){
                     case MouseEvent.BUTTON1:{System.out.println("direito");
                         JanelaPrincipalJogo.addClike();
-                        if(aux.temBomba){
+                        
+                        if(aux.temBomba && !aux.getOcupado()){
                             aux.setIcon(ic_bomba);//seta ic_bomba
                             JanelaPrincipalJogo.varreMostraBomba(ic_bomba);
                             
                             JOptionPane.showMessageDialog(null,"Fim de jogo - Você perdeu com apenas "+JanelaPrincipalJogo.getClike() +" cliks");
-                          
+                            // Partida.nova();
+                        }
+                        if(aux.getBombasEmVolta()!=0 && !aux.getOcupado()){
+                            //mostra o número de bombas
+                            aux.setBackground(new Color(0, 100, 0));
+                            aux.setFont(new Font("Arial", Font.BOLD, 18));
+                            aux.setForeground(new Color(0, 0, 0));
+                            aux.setText(Integer.toString(aux.getBombasEmVolta()));
+                            aux.setOcupado(true);//fica ocupado
+                        }else{
+                            aux.setBackground(new Color(0, 100, 0));
+                            aux.setForeground(new Color(0, 0, 0));
+                            aux.setText(Integer.toString(aux.getBombasEmVolta()));
+                            aux.setOcupado(true);//fica ocupado
                         }
                        
                         
