@@ -14,12 +14,9 @@ import javax.swing.Icon;
  * @author hz
  */
 public class JanelaPrincipalJogo extends javax.swing.JFrame {
-    final int BF = 3;
-    final int BM = 6;
-    final int BD = 9;
     
     private static int clike =0;
-    final int NLINCOL = 10;
+    final int NLINCOL = 10; // Coloque o número de linhas/colunas que deseja
     private int nBombas = NLINCOL;
     private static Botao [][] matBotoes;
     
@@ -29,11 +26,9 @@ public class JanelaPrincipalJogo extends javax.swing.JFrame {
         
         this.fazBotoes(NLINCOL);
         contaBombasRedor(NLINCOL);
-    
-        
-        
         
     }
+    
     public void fazBotoes(int qtd){
         
         matBotoes = new Botao[qtd][qtd];
@@ -41,10 +36,10 @@ public class JanelaPrincipalJogo extends javax.swing.JFrame {
         for(int i=0; i < matBotoes.length; i++){
             for(int j=0; j<matBotoes.length; j++){
                 Random bf = new Random();
-            int n = bf.nextInt(10);                       
+            int n = bf.nextInt(NLINCOL*NLINCOL);                       
             matBotoes[i][j] = new Botao();
             matBotoes[i][j].setPosicao(i, j);
-            if(n < 1 && nBombas > 0){
+            if(n < 7 && nBombas > 0){
                 matBotoes[i][j].temBomba = true;        
                 nBombas--;
             }
@@ -62,7 +57,7 @@ public class JanelaPrincipalJogo extends javax.swing.JFrame {
     public static void varreMostraBomba(Icon ic_bomba){
         for (int i=0; i< matBotoes.length; i++) {
             for(int j=0; j<matBotoes.length; j++){
-                matBotoes[i][j].setOcupado(true); // já vai deixando ocupado o botao
+                matBotoes[i][j].setDesocupado(false); // já vai deixando desocupado o botao
                 if (matBotoes[i][j].temBomba) {
                     matBotoes[i][j].setIcon(ic_bomba);
                 }
@@ -139,6 +134,7 @@ public class JanelaPrincipalJogo extends javax.swing.JFrame {
     
     }
     
+    
 
 
     @SuppressWarnings("unchecked")
@@ -146,21 +142,41 @@ public class JanelaPrincipalJogo extends javax.swing.JFrame {
     private void initComponents() {
 
         jInformacoes = new javax.swing.JDesktopPane();
+        jCarinha = new javax.swing.JPanel();
         jBotoes = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jInformacoes.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 0, 204)));
 
+        javax.swing.GroupLayout jCarinhaLayout = new javax.swing.GroupLayout(jCarinha);
+        jCarinha.setLayout(jCarinhaLayout);
+        jCarinhaLayout.setHorizontalGroup(
+            jCarinhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 70, Short.MAX_VALUE)
+        );
+        jCarinhaLayout.setVerticalGroup(
+            jCarinhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 71, Short.MAX_VALUE)
+        );
+
+        jInformacoes.setLayer(jCarinha, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jInformacoesLayout = new javax.swing.GroupLayout(jInformacoes);
         jInformacoes.setLayout(jInformacoesLayout);
         jInformacoesLayout.setHorizontalGroup(
             jInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jInformacoesLayout.createSequentialGroup()
+                .addGap(147, 147, 147)
+                .addComponent(jCarinha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jInformacoesLayout.setVerticalGroup(
             jInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 58, Short.MAX_VALUE)
+            .addGroup(jInformacoesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jCarinha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jBotoes.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(51, 0, 51)));
@@ -173,7 +189,7 @@ public class JanelaPrincipalJogo extends javax.swing.JFrame {
         );
         jBotoesLayout.setVerticalGroup(
             jBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 195, Short.MAX_VALUE)
+            .addGap(0, 170, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -245,6 +261,7 @@ public class JanelaPrincipalJogo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jBotoes;
+    private javax.swing.JPanel jCarinha;
     private javax.swing.JDesktopPane jInformacoes;
     // End of variables declaration//GEN-END:variables
 }

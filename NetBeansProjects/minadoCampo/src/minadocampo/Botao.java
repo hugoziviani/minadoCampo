@@ -20,13 +20,15 @@ import javax.swing.JOptionPane;
  */
 public class Botao extends JButton {
    
-    protected boolean ocupado = false;
+    protected boolean desocupado = true;
     protected boolean temBomba = false;
     protected int bombasEmVolta = 0;
-    boolean clicado = false;
-    private boolean marcadorDeMinas = false;
-    private int i, j;
+    private boolean clicado = false;
+    private boolean marcadoDeMina = false;
 
+    private int i, j;
+   
+    
     public int getI() {
         return i;
     }
@@ -38,12 +40,8 @@ public class Botao extends JButton {
         this.j=j;
         
     }
-    
-    
-    
     public final Icon ic_bomba = new javax.swing.ImageIcon(getClass().getResource("bomba.png"));
     public final Icon ic_bandeirinha = new javax.swing.ImageIcon(getClass().getResource("bandeirinha.png"));
-    
     public Botao() { //construtor do botão
         super();
         setText("");
@@ -60,63 +58,71 @@ public class Botao extends JButton {
         
         
     }
-    public boolean getOcupado(){
-        return ocupado;
+    public boolean getDesocupado(){
+        return desocupado;
     }
-    public void setOcupado(boolean x){
-        this.ocupado = x;
+    public void setDesocupado(boolean x){
+        this.desocupado = x;
     }
-
     public int getBombasEmVolta() {
         return bombasEmVolta;
     }
-
     public void setBombasEmVolta(int bombasEmVolta) {
         this.bombasEmVolta = bombasEmVolta;
     }
-    
-    
-    
     private class MouseHandler extends MouseAdapter {
         public void mouseClicked (MouseEvent evt){
             Botao aux = (Botao) evt.getComponent();
-            if(aux.getOcupado() == false){
+            
                 switch (evt.getButton()){
                     case MouseEvent.BUTTON1:{System.out.println("direito");
                         JanelaPrincipalJogo.addClike();
-                        
-                        if(aux.temBomba && !aux.getOcupado()){
+                        if(aux.marcadoDeMina)break;
+                        if(aux.temBomba){
                             aux.setIcon(ic_bomba);//seta ic_bomba
                             JanelaPrincipalJogo.varreMostraBomba(ic_bomba);
                             
                             JOptionPane.showMessageDialog(null,"Fim de jogo - Você perdeu com apenas "+JanelaPrincipalJogo.getClike() +" cliks");
+                            
                             // Partida.nova();
-                        }
-                        if(aux.getBombasEmVolta()!=0 && !aux.getOcupado()){
-                            //mostra o número de bombas
-                            aux.setBackground(new Color(0, 100, 0));
-                            aux.setFont(new Font("Arial", Font.BOLD, 18));
+                        }else{ 
+                            if(aux.getBombasEmVolta()==0){
+                            aux.setBackground(new Color(0, 0, 250));
                             aux.setForeground(new Color(0, 0, 0));
                             aux.setText(Integer.toString(aux.getBombasEmVolta()));
-                            aux.setOcupado(true);//fica ocupado
-                        }else{
-                            aux.setBackground(new Color(0, 100, 0));
-                            aux.setForeground(new Color(0, 0, 0));
-                            aux.setText(Integer.toString(aux.getBombasEmVolta()));
-                            aux.setOcupado(true);//fica ocupado
+                            aux.setDesocupado(false);//fica desocupado
+                            }
+                            if(aux.getBombasEmVolta()!=0){
+                                //mostra o número de bombas
+                                aux.setBackground(new Color(0, 250, 0));
+                                aux.setFont(new Font("Arial", Font.BOLD, 18));
+                                aux.setForeground(new Color(0, 0, 0));
+                                aux.setText(Integer.toString(aux.getBombasEmVolta()));
+                                aux.setDesocupado(false);//fica desocupado
+                            }
                         }
-                       
-                        
                         
                         break;
                     }
                     case MouseEvent.BUTTON3:{System.out.println("esquerdo");
-                        aux.setIcon(ic_bandeirinha);
-                        break;
+                        if(aux.getDesocupado() == true ){
+                            aux.setIcon(ic_bandeirinha);
+                            aux.setDesocupado(false);//coloca ele ocupado
+                            aux.marcadoDeMina = true;
+                            break;
+                        }
+                        if(aux.getDesocupado()){
+                            aux.setIcon(null);
+                            aux.setDesocupado(true);
+                            aux.marcadoDeMina = false;
+                        
+                            break;
+                        }
+                            
                     }
                         
                 
-                }
+                
                         
                         
             }
